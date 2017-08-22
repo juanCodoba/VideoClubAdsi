@@ -35,6 +35,30 @@
 		<option ng-value="{{item.id}}" ng-repeat="item in vm.ciudades">{{item.nombre}}</option>
 	</select>
 
+  <!--autocomplete-->
+  <md-autocomplete flex required
+    md-input-name="autocompleteField"
+    md-input-minlength="2"
+    md-input-maxlength="18"
+    md-no-cache="vm.noCache"
+    md-selected-item="vm.selectedItem"
+    md-search-text="vm.searchText"
+    md-items="item in vm.querySearch(vm.searchText)"
+    md-item-text="item.nombre"
+    md-require-match
+    md-floating-label="Favorite state">
+  <md-item-template>
+    <span md-highlight-text="vm.searchText">{{item.nombre}}</span>
+  </md-item-template>
+  <div ng-messages="searchForm.autocompleteField.$error" ng-if="searchForm.autocompleteField.$touched">
+    <div ng-message="required">You <b>must</b> have a favorite state.</div>
+    <div ng-message="md-require-match">Please select an existing state.</div>
+    <div ng-message="minlength">Your entry is not long enough.</div>
+    <div ng-message="maxlength">Your entry is too long.</div>
+  </div>
+</md-autocomplete>
+<!--/autocomplete-->
+
     <div>
         <label for="foto-input">
             	       Subir Foto

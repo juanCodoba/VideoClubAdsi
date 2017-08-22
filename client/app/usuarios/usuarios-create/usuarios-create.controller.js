@@ -9,6 +9,9 @@
             this.$state = $state;
             this.tiposDocumentosService = tiposDocumentosService;
             this.ciudadesService = ciudadesService;
+            this.selectedItem  = null;
+            this.searchText    = null;
+
         }
         $onInit() {
             this.departamentosService.query().$promise
@@ -23,14 +26,14 @@
                 })
                 .catch(err => console.error(err));
         }
-        getCiudades() {
-            this.ciudadesService.getCiudades({ idDepartamento: this.idDepartamento }).$promise
-                .then(response => {
-                    this.ciudades = response;
-                    console.log("Ciudades", this.ciudades);
-                })
-                .catch(err => console.error(err));
-        }
+        // getCiudades() {
+        //     this.ciudadesService.getCiudades({ idDepartamento: this.idDepartamento }).$promise
+        //         .then(response => {
+        //             this.ciudades = response;
+        //             console.log("Ciudades", this.ciudades);
+        //         })
+        //         .catch(err => console.error(err));
+        // }
 
         createUser() {
             if (this.croppedImage) {
@@ -51,6 +54,13 @@
 
         imageLoad($fileContent) {
             this.image = $fileContent;
+        }
+        querySearch(dato){
+          return this.ciudadesService.getCiudades({nombre:dato}).$promise
+          .then(response => {
+            return response ;
+          })
+
         }
 
     }
