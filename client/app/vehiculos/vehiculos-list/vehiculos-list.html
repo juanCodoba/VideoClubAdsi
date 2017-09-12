@@ -1,0 +1,26 @@
+<div class="container">
+  <h2>vehiculos</h2>
+  <table class="table  table-hover">
+    <thead>
+      <tr>
+        <td>id</td>
+        <td>marca</td>
+        <td>descripcion</td>
+        <td>valorAlquiler</td>
+        <td>descuento</td>
+        <td>tipo</td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="item in vm.vehiculos">
+        <td>{{item.id}}</td>
+        <td>{{item.marca}}</td>
+        <td>{{item.descripcion}}</td>
+        <td>{{item.valorAlquiler}}</td>
+        <td>{{item.descuento}}</td>
+        <td>{{item.tipo}}</td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>
