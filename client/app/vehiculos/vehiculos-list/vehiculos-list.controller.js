@@ -2,7 +2,9 @@
 (function(){
 
 class VehiculosListComponent {
-  constructor() {
+  constructor($state,$stateParams) {
+    this.$state = $state;
+    this.$stateParams = $stateParams;
     this.vehiculos = [{
       id:1,
       marca:"Kia",
@@ -35,7 +37,19 @@ class VehiculosListComponent {
           tipo:"Gama alta"
         }
 
+
   ];
+    this.vehiculosid = [{
+     vehiculos:{
+      id : null
+     }
+  }];
+
+  // this.query = {
+  //   order: descripcion,
+  //   limit: 5,
+  //   page :1
+  // };
   }
   $onInit(){
     for (var i = 0; i < this.vehiculos.length; i++) {
@@ -44,11 +58,24 @@ class VehiculosListComponent {
           if (this.vehiculos[i].tipo == "mediano") {
               this.vehiculos[i].descuento = this.vehiculos[i].valorAlquiler - this.vehiculos[i].valorAlquiler * 0.2;
 
+      }  if (this.vehiculos[i].tipo == "Gama alta") {
+              this.vehiculos[i].aumento = this.vehiculos[i].valorAlquiler + this.vehiculos[i].valorAlquiler * 0.05 ;
+
       }
-        console.log(this.vehiculos[i].valorAlquiler + " el valor del descuento " + this.vehiculos[i].descuento);
+        console.log(this.vehiculos[i].valorAlquiler + " el valor del descuento " + this.vehiculos[i].descuento +"El valor de aumento es " +  this.vehiculos[i].aumento);
     }
+    this.vehiculos.list({id: this.$stateParams.id}).promise
+    .then(response =>{
+      this.vehiculos = response;
+      console.console.log("VEHICULOS",this.vehiculos);
+      this.vehiculos.id = response.id;
+
+    })
   }
+
 }
+VehiculosListComponent.$inject = ['$state', '$stateParams'];
+
 angular.module('videoClubApp')
   .component('vehiculosList', {
     templateUrl: 'app/vehiculos/vehiculos-list/vehiculos-list.html',

@@ -1,26 +1,37 @@
 <div class="container">
   <h2>vehiculos</h2>
-  <table class="table  table-hover">
-    <thead>
-      <tr>
-        <td>id</td>
-        <td>marca</td>
-        <td>descripcion</td>
-        <td>valorAlquiler</td>
-        <td>descuento</td>
-        <td>tipo</td>
-      </tr>
-    </thead>
-    <tbody>
-      <tr ng-repeat="item in vm.vehiculos">
-        <td>{{item.id}}</td>
-        <td>{{item.marca}}</td>
-        <td>{{item.descripcion}}</td>
-        <td>{{item.valorAlquiler}}</td>
-        <td>{{item.descuento}}</td>
-        <td>{{item.tipo}}</td>
-      </tr>
-    </tbody>
-  </table>
+  <md-table-container>
+    <table md-table class="table  table-hover">
+
+      <thead md-head md-order ="query.order">
+        <tr>
+          <td md-column>id</td>
+          <td  md-column>marca</td>
+          <td  md-column>descripcion</td>
+          <td  md-column>valorAlquiler</td>
+          <td  md-column>descuento</td>
+          <td  md-column> aumento por impuesto de gama</td>
+          <td  md-column>tipo</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="item in vm.vehiculos | limitTo:vm.query.limit :(vm.query.page - 1 ) * vm.query.limit ">
+          <td md-cell><a ui-sref="vehiculos-list({id:item.id})"> {{item.id}}</a></td>
+          <td md-cell>{{item.marca}}</td>
+          <td md-cell>{{item.descripcion}}</td>
+          <td md-cell>{{item.valorAlquiler}}</td>
+          <td md-cell>{{item.descuento}}</td>
+          <td md-cell>{{item.aumento}}</td>
+          <td md-cell>{{item.tipo}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </md-table-container>
+
+  <md-table-pagination md-limit  = "vm.query.limit "
+    md-limit-options = "[2,4]"
+    md-page = "vm.query.page"
+    md-total={{vm.vehiculos.length}}
+    md-page-select></md-table-pagination>
 
 </div>

@@ -12,6 +12,7 @@ angular.module('videoClubApp', [
         'ngImgCrop',
         'ngFileSaver',
         'ngMaterial',
+        'md.data.table',
         'LocalStorageModule'
     ])
     .constant("API", "http://localhost:8080/adsi2017_backend_completo")
